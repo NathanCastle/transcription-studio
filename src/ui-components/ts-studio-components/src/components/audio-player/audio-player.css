@@ -1,6 +1,7 @@
 :host {
     display: block;
     box-sizing: border-box;
+    font-family: var(--tsc-font-family);
   }
 
 .player-container {
@@ -26,4 +27,34 @@
 .right-controls {
     grid-row: 3/4;
     grid-column: 2/3;
+}
+
+.left-controls {
+    grid-row: 1/2;
+    grid-column: 2/3;
+}
+
+svg {
+    width: 16; height: 16;
+}
+
+button {
+    background-color: transparent;
+    border: transparent;
+    color: black;
+    cursor:pointer;
+}
+
+button:hover {
+    color: var(--tsc-hover-foreground-color);
+}
+button:hover svg {
+    color: var(--tsc-hover-foreground-color);
+}
+
+button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
 }

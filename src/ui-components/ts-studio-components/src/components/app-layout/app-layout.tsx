@@ -1,4 +1,4 @@
-import { Component, Prop, h, Event, EventEmitter, State, Method } from '@stencil/core';
+import { Component, h, Method } from '@stencil/core';
 import { Session } from '../../models/session';
 
 @Component({
@@ -15,7 +15,7 @@ export class AppLayout {
   render() {
     return <div class="outer-layout">
         <div class="nav-bar">
-          
+
         </div>
         <div class="keyboard-tool"></div>
         <div class="panel-container">

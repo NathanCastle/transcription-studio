@@ -2,6 +2,7 @@ import { Config } from '@stencil/core';
 
 export const config: Config = {
   namespace: 'ts-studio-components',
+  globalStyle: 'src/global/variables.css',
   outputTargets: [
     {
       type: 'dist',

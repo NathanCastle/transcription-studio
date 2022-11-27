@@ -9,6 +9,11 @@ export class Session {
     fullTranscript?:SpeechSegment[];
     playbackPosition:number = 0;
 
+    notifyProgressChange(time:number){
+        this.playbackPosition = time;
+        this._notifyListenersFlagged('playbackPosition', ['noseek'])
+    }
+
     seek(time:number){
         this.playbackPosition = time;
         this._notifyListeners("playbackPosition")
@@ -22,13 +27,9 @@ export class Session {
     }
 
     registerListener(listener:PropertyChangeListener){
-        console.log("registering listener")
-        console.dir(listener);
         this.listeners.push(listener)
     }
     unregisterListener(listener:PropertyChangeListener) {
-        console.log("unregistering lsitener")
-        console.dir(listener);
         this.listeners = this.listeners.filter((item) => item !== listener);
     }
 
@@ -87,8 +88,11 @@ export class Session {
     }
 
     _notifyListeners(property:string){
+        this._notifyListenersFlagged(property, undefined)
+    }
+    _notifyListenersFlagged(property:string, flags: string[] | undefined){
         for(var listener of this.listeners){
-            listener.onPropertyChange(this, property);
+            listener.onPropertyChange(this, property, flags);
         }
     }
 }

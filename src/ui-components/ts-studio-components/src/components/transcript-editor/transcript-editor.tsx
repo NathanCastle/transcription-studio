@@ -1,4 +1,4 @@
-import { Component, Prop, h, Event, EventEmitter, State, Watch } from '@stencil/core';
+import { Component, h, State} from '@stencil/core';
 import { PropertyChangeListener } from '../../models/propertyChangeListener';
 import {Session} from '../../models/session';
 import { SpeechSegment } from '../../models/speechSegment';
@@ -27,7 +27,7 @@ export class TranscriptEditor implements PropertyChangeListener {
   render() {
     let output = <div>Nothing to see here</div>
     if (this.segmentList){
-        output = this.segmentList.map((item, idx, arr) => {
+        output = this.segmentList.map((item) => {
             return <tsc-speaker-slice segment={item}></tsc-speaker-slice>
         }) ;
     }
