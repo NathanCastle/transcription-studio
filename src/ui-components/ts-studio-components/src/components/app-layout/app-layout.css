@@ -1,0 +1,33 @@
+:host {
+    display: block;
+    box-sizing: border-box;
+    position: relative;
+  }
+
+.outer-layout {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    grid-template-columns: 1fr;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.pinned-bottom {
+    grid-row: 3/4;
+}
+
+.panel-container {
+    grid-row: 2/3;
+}
+.panel-container-inner {
+    display: flex;
+    height: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.nav-bar {
+    grid-row: 1/2;
+}

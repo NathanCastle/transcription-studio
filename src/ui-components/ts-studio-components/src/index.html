@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+    <title>Stencil Component Starter</title>
+
+    <script type="module" src="/build/ts-studio-components.esm.js"></script>
+    <script nomodule src="/build/ts-studio-components.js"></script>
+    <style>
+      body {
+        margin: 0;
+      }
+      tsc-app-layout {
+        width: 100vw;
+        height: 100vh;
+        max-height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <tsc-app-layout>
+      <tsc-app-layout-panel title="File Browser" style="max-width: 140px">
+        <h2>Open Audio</h2>
+        <input type="file" id="open-audio-file" onchange="handleOpenAudio()">
+        <h2>Open precomputed transcript</h2>
+        <input type="file" id="open-vtt-file" onchange="handleOpenVTT()">
+      </tsc-app-layout-panel>
+      <tsc-app-layout-panel title="Transcript Editor">
+        <tsc-transcript-editor></tsc-transcript-editor>
+      </tsc-app-layout-panel>
+      <tsc-app-layout-panel title="raw file live-preview">
+        <pre id="raw-vtt-display"></pre>
+      </tsc-app-layout-panel>
+      <tsc-app-layout-panel title="Terminal" is-collapsed="true">
+        Z
+      </tsc-app-layout-panel>
+      <div slot="slot-pinned-bottom" style="background-color:green">
+        <tsc-audio-player></tsc-audio-player>
+      </div>
+    </tsc-app-layout>
+  </body>
+  <script>
+    var session = null; 
+    
+    customElements.whenDefined('tsc-app-layout').then(async function () {
+      session = await document.querySelector('tsc-app-layout').getSession();
+    });
+    function handleOpenAudio(){
+      console.log('opening audio')
+      const fileInput = document.getElementById("open-audio-file");
+      const selectedFile = fileInput.files[0];
+      const audioPlayer = document.querySelector("tsc-audio-player");
+
+      var reader = new FileReader();
+      reader.onload = ((e) => {
+        console.log("loading file")
+        console.dir(session);
+        session.loadAudioDataURL(e.target.result);
+       //audioPlayer.src = e.target.result;
+      })
+      reader.readAsDataURL(selectedFile);
+    }
+    function handleOpenVTT(){
+      const fileInput = document.getElementById("open-vtt-file");
+      const selectedFile = fileInput.files[0];
+      const preDisplay = document.querySelector("#raw-vtt-display");
+
+      var reader = new FileReader();
+      reader.onload = ((e) => {
+        let textContent = e.target.result;
+        if (textContent){
+        preDisplay.innerHTML = textContent;
+        session.loadTranscript(textContent);
+        }
+      })
+      reader.readAsText(selectedFile);
+    }
+  </script>
+
+</html>
