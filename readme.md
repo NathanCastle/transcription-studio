@@ -1,3 +1,15 @@
+# Transcript Studio
+
+Project goal: provide a front-end/UI that enables full workflows for transcribing audio using [Whisper](https://github.com/openai/whisper)
+
+Background: OpenAI recently released Whisper, which achieves close to human-level transcription, far better than existing solutions like Otter and Zoom's built-in transcription. Unfortunately, Whisper does not provide any UI for editing transcripts, labeling speakers, or correcting errors.
+
+Project MVP and stages:
+
+- **MVP**: UI supports importing .vtt produced by Whisper, playing audio for segments of the transcription, combining transcript segments, and labeling segments. Once edited, the transcript can be exported in a usable format.
+- **Future goal**: Provide user-friendly UI that enables downloading and setting up Whisper backend
+- **Future goal**: Support running Whisper transcription from within the app
+- **Future goal**: Integrate with ffmpeg and youtube-dl to make it easy to transcribe youtube videos and recordings not already in .wav format.
 
 ## License and 3rd-party software
 
