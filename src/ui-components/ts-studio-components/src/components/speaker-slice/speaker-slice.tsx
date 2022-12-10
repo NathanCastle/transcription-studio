@@ -2,6 +2,7 @@ import { Component, Prop, h, State, Watch } from '@stencil/core';
 import { PropertyChangeListener } from '../../models/propertyChangeListener';
 import { Session } from '../../models/session';
 import { SpeechSegment } from '../../models/speechSegment';
+import { formatSecondsToTimestamp } from '../../utils/utils';
 
 @Component({
   tag: 'tsc-speaker-slice',
@@ -20,7 +21,7 @@ export class SpeakerSlice implements PropertyChangeListener {
   @Prop() segment?: SpeechSegment;
   @State() isNowPlaying: boolean = false;
   @State() speakerName: string;
-  @State() timeStampStart: string;
+  @State() timeStampStart: number;
   @State() timeStampEnd: string;
   @State() speechContent: string;
 
@@ -30,7 +31,7 @@ export class SpeakerSlice implements PropertyChangeListener {
 
   componentWillLoad() {
     Session._instance.registerListener(this);
-    this.timeStampStart = this.segment.startTimeSeconds + "";
+    this.timeStampStart = this.segment.startTimeSeconds;
     this.timeStampEnd = this.segment.endTimeSeconds + "";
     this.speechContent = this.segment.speechContent;
     this.speakerName = this.segment.speakerLabel;
@@ -38,7 +39,7 @@ export class SpeakerSlice implements PropertyChangeListener {
 
   @Watch('segment')
   HandleSegmentApplied(newValue?: SpeechSegment, oldValue?: SpeechSegment) {
-    this.timeStampStart = newValue.startTimeSeconds + "";
+    this.timeStampStart = newValue.startTimeSeconds;
     this.timeStampEnd = newValue.endTimeSeconds + "";
     this.speechContent = newValue.speechContent;
     this.speakerName = newValue.speakerLabel;
@@ -75,7 +76,7 @@ export class SpeakerSlice implements PropertyChangeListener {
   render() {
     return <div class={{ "sliceContainer": true, "playing": this.isNowPlaying }}>
       <div class="timestampArea">
-        {this.timeStampStart}
+        {formatSecondsToTimestamp(this.timeStampStart)}
       </div>
       <div class="speakerName">
         <input type='text' value={this.speakerName} onChange={(evt) => this._handleSpeakerChange(evt)}></input>

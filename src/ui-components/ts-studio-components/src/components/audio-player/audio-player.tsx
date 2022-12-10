@@ -1,6 +1,7 @@
 import { Component, h, State, Watch } from '@stencil/core';
 import { PropertyChangeListener } from '../../models/propertyChangeListener';
 import { Session } from '../../models/session';
+import { formatSecondsToTimestamp } from '../../utils/utils';
 
 @Component({
     tag: 'tsc-audio-player',
@@ -90,7 +91,7 @@ export class AudioPlayer implements PropertyChangeListener {
         return <div class='player-container'>
             <div class="progress-bar"></div>
             <div class="left-controls">
-                {this.currentTime} of {this.audioPlayer.duration}
+                {formatSecondsToTimestamp(this.currentTime)} - {formatSecondsToTimestamp(this.audioPlayer?.duration)}
             </div>
             <div class="playback-controls">
                 <button aria-label='Rewind playback 30 seconds' onClick={() => this._moveTrack(-30)}>{this._getIconBack()}30</button>
