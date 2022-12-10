@@ -20,7 +20,7 @@
 
 .content-area {
     background-color: #fff;
-    overflow: scroll;
+    overflow: hidden;
     min-height: 0;
-    height: 100%;
+    height: calc(100% - 1.5rem 2px);
 }

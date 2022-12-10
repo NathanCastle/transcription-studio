@@ -1,0 +1,55 @@
+.export-container {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    height: 100%;
+}
+
+.settings-area {
+    grid-row: 1/2
+}
+
+.preview-area {
+    grid-row: 2/3;
+    min-height: 0;
+    padding: 0.5rem;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.export-toolbar {
+    grid-row: 3/4;
+    background-color: var(--tsc-toolbar-background);
+    min-height: 2rem;
+}
+
+menu {
+    display: block;
+    padding: 0;
+}
+
+.format-option {
+    display: inline-block;
+    padding: 0.25rem 1rem 0.25rem 1rem;
+    background-color: transparent;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+/* prevent double border in radio group */
+.format-option ~ .format-option {
+    border: 1px solid black;
+    border-left: none;
+}
+
+.format-option:hover {
+    background-color: gray;
+}
+
+.format-option-selected {
+    background-color: black;
+    color: white;
+}
+
+pre {
+    white-space: pre-line;
+}

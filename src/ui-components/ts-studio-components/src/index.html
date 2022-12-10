@@ -2,7 +2,7 @@
 <html dir="ltr" lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0,viewport-fit=cover" />
     <title>Stencil Component Starter</title>
 
     <script type="module" src="/build/ts-studio-components.esm.js"></script>
@@ -13,8 +13,8 @@
       }
       tsc-app-layout {
         width: 100vw;
-        height: 100vh;
-        max-height: 100vh;
+        margin:0;
+        height: calc(100vh - env(safe-area-inset-bottom) - env(safe-area-inset-top));
       }
     </style>
     <link rel="stylesheet" href="/build/ts-studio-components.css" />
@@ -33,8 +33,8 @@
       <tsc-app-layout-panel title="raw file live-preview">
         <pre id="raw-vtt-display"></pre>
       </tsc-app-layout-panel>
-      <tsc-app-layout-panel title="Terminal" is-collapsed="true">
-        Z
+      <tsc-app-layout-panel title="Export" is-collapsed="true">
+        <tsc-export-view></tsc-export-view>
       </tsc-app-layout-panel>
       <div slot="slot-pinned-bottom" style="background-color:green">
         <tsc-audio-player></tsc-audio-player>

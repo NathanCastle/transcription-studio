@@ -16,6 +16,8 @@ export namespace Components {
     }
     interface TscAudioPlayer {
     }
+    interface TscExportView {
+    }
     interface TscSpeakerSlice {
         "segment"?: SpeechSegment;
     }
@@ -41,6 +43,12 @@ declare global {
         prototype: HTMLTscAudioPlayerElement;
         new (): HTMLTscAudioPlayerElement;
     };
+    interface HTMLTscExportViewElement extends Components.TscExportView, HTMLStencilElement {
+    }
+    var HTMLTscExportViewElement: {
+        prototype: HTMLTscExportViewElement;
+        new (): HTMLTscExportViewElement;
+    };
     interface HTMLTscSpeakerSliceElement extends Components.TscSpeakerSlice, HTMLStencilElement {
     }
     var HTMLTscSpeakerSliceElement: {
@@ -57,6 +65,7 @@ declare global {
         "tsc-app-layout": HTMLTscAppLayoutElement;
         "tsc-app-layout-panel": HTMLTscAppLayoutPanelElement;
         "tsc-audio-player": HTMLTscAudioPlayerElement;
+        "tsc-export-view": HTMLTscExportViewElement;
         "tsc-speaker-slice": HTMLTscSpeakerSliceElement;
         "tsc-transcript-editor": HTMLTscTranscriptEditorElement;
     }
@@ -69,6 +78,8 @@ declare namespace LocalJSX {
     }
     interface TscAudioPlayer {
     }
+    interface TscExportView {
+    }
     interface TscSpeakerSlice {
         "segment"?: SpeechSegment;
     }
@@ -78,6 +89,7 @@ declare namespace LocalJSX {
         "tsc-app-layout": TscAppLayout;
         "tsc-app-layout-panel": TscAppLayoutPanel;
         "tsc-audio-player": TscAudioPlayer;
+        "tsc-export-view": TscExportView;
         "tsc-speaker-slice": TscSpeakerSlice;
         "tsc-transcript-editor": TscTranscriptEditor;
     }
@@ -89,6 +101,7 @@ declare module "@stencil/core" {
             "tsc-app-layout": LocalJSX.TscAppLayout & JSXBase.HTMLAttributes<HTMLTscAppLayoutElement>;
             "tsc-app-layout-panel": LocalJSX.TscAppLayoutPanel & JSXBase.HTMLAttributes<HTMLTscAppLayoutPanelElement>;
             "tsc-audio-player": LocalJSX.TscAudioPlayer & JSXBase.HTMLAttributes<HTMLTscAudioPlayerElement>;
+            "tsc-export-view": LocalJSX.TscExportView & JSXBase.HTMLAttributes<HTMLTscExportViewElement>;
             "tsc-speaker-slice": LocalJSX.TscSpeakerSlice & JSXBase.HTMLAttributes<HTMLTscSpeakerSliceElement>;
             "tsc-transcript-editor": LocalJSX.TscTranscriptEditor & JSXBase.HTMLAttributes<HTMLTscTranscriptEditorElement>;
         }
