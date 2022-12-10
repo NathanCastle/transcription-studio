@@ -17,12 +17,16 @@ export class SpeakerSlice implements PropertyChangeListener {
     else if (property === 'renamedSegments') {
       this.speakerName = this.segment.speakerLabel;
     }
+    if (property === "fullTranscript") {
+      this.speechContent = this.segment.speechContent;
+      this.timeStampEnd = this.segment.endTimeSeconds;
+    }
   }
   @Prop() segment?: SpeechSegment;
   @State() isNowPlaying: boolean = false;
   @State() speakerName: string;
   @State() timeStampStart: number;
-  @State() timeStampEnd: string;
+  @State() timeStampEnd: number;
   @State() speechContent: string;
 
   disconnectedCallback() {
@@ -32,7 +36,7 @@ export class SpeakerSlice implements PropertyChangeListener {
   componentWillLoad() {
     Session._instance.registerListener(this);
     this.timeStampStart = this.segment.startTimeSeconds;
-    this.timeStampEnd = this.segment.endTimeSeconds + "";
+    this.timeStampEnd = this.segment.endTimeSeconds;
     this.speechContent = this.segment.speechContent;
     this.speakerName = this.segment.speakerLabel;
   }
@@ -40,7 +44,7 @@ export class SpeakerSlice implements PropertyChangeListener {
   @Watch('segment')
   HandleSegmentApplied(newValue?: SpeechSegment, oldValue?: SpeechSegment) {
     this.timeStampStart = newValue.startTimeSeconds;
-    this.timeStampEnd = newValue.endTimeSeconds + "";
+    this.timeStampEnd = newValue.endTimeSeconds;
     this.speechContent = newValue.speechContent;
     this.speakerName = newValue.speakerLabel;
   }
@@ -60,7 +64,17 @@ export class SpeakerSlice implements PropertyChangeListener {
   }
 
   _handleMergeRequest() {
-
+    let thisSegment = this.segment;
+    let previousSegment = this.segment.previousSegment;
+    if (!previousSegment){
+      return;
+    }
+    previousSegment.speechContent = `${previousSegment.speechContent} ${thisSegment.speechContent}`;
+    previousSegment.nextSegment = thisSegment.nextSegment;
+    thisSegment.nextSegment.previousSegment = previousSegment;
+    previousSegment.endTimeSeconds = thisSegment.endTimeSeconds;
+    Session._instance.fullTranscript = Session._instance.fullTranscript.filter((seg) => seg != this.segment);
+    Session._instance._notifyListeners("fullTranscript");
   }
 
   _handlePlayRequest() {
