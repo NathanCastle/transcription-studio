@@ -1,3 +1,4 @@
+/* Don't forget to link stylesheet in index.html */
 :root {
---tsc-hover-foreground-color: red;
+    --tsc-toolbar-background: #E8E5DF;
 }
